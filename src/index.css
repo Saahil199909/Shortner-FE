@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Custom styles for the table header */
+.custom-table .ant-table-thead > tr > th {
+    background-color: #4A90E2; /* Set your desired background color */
+    color: white; /* Set text color to white or your desired color */
+  }
