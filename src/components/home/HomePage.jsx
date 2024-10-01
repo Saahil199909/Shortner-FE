@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
@@ -9,16 +9,41 @@ import AsideLinkComp from './AsideLinkComp'
 import AsideAnalyticsComp from './AsideAnalyticsComp'
 import AsideAdminComp from './AsideAdminComp'
 import { apiurl } from "../../../config";
+import EditShortLink from "./EditShortLink";
+import '../../index.css'
 
 export default function Homepage() {
 
   const [isAsideVisible, setAsideVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [shortLink, setShortLink] = useState('')
+  const [showNotification, setShowNotification] = useState(false)
+  const [toastAnimationclass, setToastAnimationclass] = useState('')
+
+  // fuctnion for update notification visibility
+  const triggerEvent = () => {
+    setToastAnimationclass('slide-in'); // Apply the slide-in animation
+    setShowNotification(true); // Show the div
+
+    // After 3 seconds, apply the slide-out animation
+    setTimeout(() => {
+      setToastAnimationclass('slide-out');
+    }, 3000);
+
+    // Hide the div completely after the slide-out animation ends (after 3.5 seconds total)
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3500);
+  };
 
   const toggleAside = () => {
     setAsideVisible(!isAsideVisible);
   };
+
+   // Use useEffect to log the value AFTER the state has updated
+  useEffect(() => {
+    console.log(isAsideVisible, "After state update");
+  }, [isAsideVisible]);  // This effect runs whenever isAsideVisible changes
 
   const handleIsModel = async (params) => {
 
@@ -61,7 +86,7 @@ export default function Homepage() {
             : "-translate-x-full lg:translate-x-0"
         } ${isModalOpen ? 'opacity-30' : 'opacity-100'}`}
       >
-        <AsideSection />
+        <AsideSection  toggleAside={toggleAside} />
       </div>
 
       {/* Main Section */}
@@ -71,8 +96,17 @@ export default function Homepage() {
           <Route path="/link" element={<AsideLinkComp handleIsModel={handleIsModel} isModalOpen={isModalOpen} shortLink={shortLink} onclose={onclose}/>}></Route>
           <Route path="/analytics" element={<AsideAnalyticsComp/>}></Route>
           <Route path="/admin" element={<AsideAdminComp/>}></Route>
+          <Route path="/edit" element={<EditShortLink triggerEvent={triggerEvent}/>}></Route>
         </Routes>
       </div>
+
+      {showNotification ? 
+            <div className={`w-[25%] absolute bottom-10 left-20 bg-gray-400 z-50 border rounded-md ${toastAnimationclass}`}>
+              <h2 className="p-3 ml-4 text-xl font-normal">Changes were updated succesfully</h2>
+            </div> : 
+            false 
+      }
+      
     </div>
   );
 }

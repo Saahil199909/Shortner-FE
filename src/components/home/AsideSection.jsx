@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 
-export default function AsideSection() {
+export default function AsideSection(props) {
+
+  const { toggleAside } = props
 
   const navigation = useNavigate();
 
@@ -11,7 +13,10 @@ export default function AsideSection() {
       <button
         style={{ fontFamily: "Roboto, sans-serif" }}
         className="flex items-center hover:bg-gray-100 hover:text-[#382F8E] border border-b-grey-900 text-custom-gray text-[16px] pr-[6.5rem] py-4 font-semibold"
-        onClick={() => navigation('/home/')}
+        onClick={() => {
+          navigation('/home/');
+          toggleAside()
+        }}
       >
         {" "}
         <i className="fa-sharp fa-solid fa-house-chimney ml-2 mr-4 mr-3"></i> HOME
@@ -19,15 +24,20 @@ export default function AsideSection() {
       <button
         style={{ fontFamily: "Roboto, sans-serif" }}
         className="flex items-center hover:bg-gray-100 hover:text-[#382F8E] border border-b-grey-900 text-custom-gray text-[16px] pr-[6.5rem] py-4 font-semibold"
-        onClick={() => navigation('/home/link')}
+        onClick={() => {
+                    navigation('/home/link');
+                    toggleAside()
+                  }}
       >
-        {" "}
         <i class="fa-solid fa-link ml-2 mr-4 mr-3"></i> LINKS
       </button>
       <button
         style={{ fontFamily: "Roboto, sans-serif" }}
         className=" flex items-center hover:bg-gray-100 hover:text-[#382F8E] border border-b-grey-900 text-custom-gray text-[16px] pr-[4rem] py-4 font-semibold"
-        onClick={() => navigation('/home/analytics')}
+        onClick={() => {
+            navigation('/home/analytics');
+              toggleAside()
+            }}
       >
         {" "}
         <i class="fa-duotone fa-solid fa-chart-line ml-2 mr-4 mr-3"></i> ANALYTICS

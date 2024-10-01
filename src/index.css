@@ -8,3 +8,47 @@
     background-color: #4A90E2; /* Set your desired background color */
     color: white; /* Set text color to white or your desired color */
   }
+
+
+.ellipsis-column {
+    /* Set a max-width for the column */
+    max-width: 600px; 
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis when content overflows */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    text-align: left;
+    margin-left: 20px;
+}
+
+
+/* styles.css */
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToBottom {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Classes for sliding in and out */
+.slide-in {
+  animation: slideInFromBottom 0.5s ease-out forwards;
+}
+
+.slide-out {
+  animation: slideOutToBottom 0.5s ease-out forwards;
+}
