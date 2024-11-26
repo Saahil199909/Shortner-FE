@@ -7,7 +7,7 @@ export default function Navbar(props) {
   const navigate = useNavigate();
 
   const handleNewLink = () => {
-    navigate('/newlink');
+    navigate('/home/link');
   }
 
   return (

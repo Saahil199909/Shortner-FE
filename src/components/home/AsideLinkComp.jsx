@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ModalComp from "./ModalComp";
 import { apidomain } from "../../../config";
+import ErrorModalComp from "./ErrorModalComp";
+
 
 export default function AsideLinkComp(props) {
-  const { handleIsModel, isModalOpen, shortLink, onclose } = props;
+  const { handleIsModel, isModalOpen, errorModalOpen, errorData, shortLink, onclose } = props;
 
   const [generateUrlParams, setGenerateUrlParams] = useState({
     userId: 2,
@@ -60,7 +62,7 @@ export default function AsideLinkComp(props) {
             <input
               type="text"
               name="domain"
-              value="acculy.nc"
+              value="https://shortner-be.onrender.com"
               onChange={handleInputChange}
               readOnly
               className="border border-black p-3 w-[35%] sm:w-[30%] mr-[1rem] sm:mr-[2rem] border border-gray-500 rounded-md"
@@ -70,7 +72,7 @@ export default function AsideLinkComp(props) {
               type="text"
               name='keyLength'
               onChange={handleInputChange}
-              placeholder="key-length of your choice between 5 - 10 "
+              placeholder="key-length should be either 5 or 6  "
               className="border border-black p-3 w-[41%] sm:w-[37%] border border-gray-500 rounded-md "
             />
           </div>
@@ -86,6 +88,7 @@ export default function AsideLinkComp(props) {
         </fieldset>
       </main>
       {isModalOpen && <ModalComp shortLink={shortLink} onclose={onclose} />}
+      {errorModalOpen && <ErrorModalComp onclose={onclose} errorData={errorData} />}
     </div>
   );
 }

@@ -19,6 +19,8 @@ export default function Homepage() {
   const [shortLink, setShortLink] = useState('')
   const [showNotification, setShowNotification] = useState(false)
   const [toastAnimationclass, setToastAnimationclass] = useState('')
+  const [errorModalOpen, setErrorModalOpen] = useState(false)
+  const [errorData, setErrorData] = useState('')
 
   // fuctnion for update notification visibility
   const triggerEvent = () => {
@@ -62,13 +64,22 @@ export default function Homepage() {
     catch(error){
       if(error.response){
         console.log(error.response)
+        setErrorData(error.response.data.detail)
+        setErrorModalOpen(true)
       }
     }
  
   }
 
+  const handleDeleteModel = (short_key) => {
+    setShortLink(short_key)
+    setIsModalOpen(true);
+  }
+
   const onclose = () => {
+    console.log("AFTER  ONCLOSE")
     setIsModalOpen(false)
+    setErrorModalOpen(false)
   }
 
   return (
@@ -92,8 +103,8 @@ export default function Homepage() {
       {/* Main Section */}
       <div className="col-span-8 lg:col-span-6 xl:col-span-7">
         <Routes>
-          <Route path="/" element={<AsideHomeComp/>}></Route>
-          <Route path="/link" element={<AsideLinkComp handleIsModel={handleIsModel} isModalOpen={isModalOpen} shortLink={shortLink} onclose={onclose}/>}></Route>
+          <Route path="/" element={<AsideHomeComp handleDeleteModel={handleDeleteModel} onclose={onclose} isModalOpen={isModalOpen} shortLink={shortLink} />}></Route>
+          <Route path="/link" element={<AsideLinkComp handleIsModel={handleIsModel} isModalOpen={isModalOpen} errorModalOpen={errorModalOpen} errorData={errorData}  shortLink={shortLink} onclose={onclose}/>}></Route>
           <Route path="/analytics" element={<AsideAnalyticsComp/>}></Route>
           <Route path="/admin" element={<AsideAdminComp/>}></Route>
           <Route path="/edit" element={<EditShortLink triggerEvent={triggerEvent}/>}></Route>

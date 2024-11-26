@@ -5,8 +5,11 @@ import '../../index.css'
 import axios from "axios";
 import { apiurl } from "../../../config";
 import { useNavigate } from "react-router-dom";
+import ModalComp from "./ModalComp";
 
-export default function AsideHomeComp() {
+export default function AsideHomeComp(props) {
+
+  const {handleDeleteModel, onclose, isModalOpen, shortLink} = props
 
   // Define the columns for the table
   const columns = [
@@ -47,9 +50,9 @@ export default function AsideHomeComp() {
       render: (_, record) => (
         <div className="flex gap-8 text-lg justify-center">
           <button onClick={() => {navigation('/home/edit', {state: {unique_key: record.unique_key}})}}> <i className="fa-sharp fa-solid fa-pen text-gray-500"></i> </button>
-          <button> <i class="fa-sharp fa-solid fa-chart-simple text-gray-500"></i> </button>
+          <button onClick={() => {navigation('/home/analytics', {state: {unique_key: record.unique_key}})}}> <i class="fa-sharp fa-solid fa-chart-simple text-gray-500"></i> </button>
           <button> <i class="fa-sharp fa-solid fa-share-nodes text-gray-500"></i></button>
-          <button> <i class="fa-solid fa-trash text-gray-500"></i> </button>
+          <button onClick={() => handleDeleteModel(record.unique_key)}> <i class="fa-solid fa-trash text-gray-500"></i> </button>
         </div>
     )
     }
@@ -124,6 +127,7 @@ export default function AsideHomeComp() {
           />
         </div>
       </main>
+      {isModalOpen && <ModalComp shortLink={shortLink} onclose={onclose} deleteContentShow={true} />}
     </div>
   );
 }
