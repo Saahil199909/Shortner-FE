@@ -9,7 +9,7 @@ export default function AsideLinkComp(props) {
 
   const [generateUrlParams, setGenerateUrlParams] = useState({
     userId: 2,
-    keyLength: 0,
+    keyLength: '',
     longUrl: "",
     domain: apidomain,
   });
