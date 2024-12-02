@@ -12,7 +12,9 @@ import { apiurl } from "../../../config";
 import EditShortLink from "./EditShortLink";
 import '../../index.css'
 
-export default function Homepage() {
+export default function Homepage(props) {
+
+  const {user} = props
 
   const [isAsideVisible, setAsideVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -103,7 +105,7 @@ export default function Homepage() {
       {/* Main Section */}
       <div className="col-span-8 lg:col-span-6 xl:col-span-7">
         <Routes>
-          <Route path="/" element={<AsideHomeComp handleDeleteModel={handleDeleteModel} onclose={onclose} isModalOpen={isModalOpen} shortLink={shortLink} />}></Route>
+          <Route path="/" element={<AsideHomeComp user={user} handleDeleteModel={handleDeleteModel} onclose={onclose} isModalOpen={isModalOpen} shortLink={shortLink} />}></Route>
           <Route path="/link" element={<AsideLinkComp handleIsModel={handleIsModel} isModalOpen={isModalOpen} errorModalOpen={errorModalOpen} errorData={errorData}  shortLink={shortLink} onclose={onclose}/>}></Route>
           <Route path="/analytics" element={<AsideAnalyticsComp/>}></Route>
           <Route path="/admin" element={<AsideAdminComp/>}></Route>

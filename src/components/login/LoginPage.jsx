@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { apiurl } from "../../../config";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
+  const{setUser, user} = props
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setemailError] = useState("");
@@ -26,7 +28,6 @@ export default function LoginPage() {
         setemailError("email should not be empty");
     }
     if (password.length === 0) {
-        console.log("plppp");
         setPasswordError("password should not be empty ");
     }
     if (email.length === 0 && password.length === 0) {
@@ -37,7 +38,8 @@ export default function LoginPage() {
         try{
             const response = await axios.post(`${apiurl}users/`, {email, password});
             if(response.status == 200){
-                navigate("/home");
+              setUser(response.data)
+              localStorage.setItem("user_shortner", JSON.stringify(response.data))
             }else{
                 console.error("Unexpected response status:", response.status, response.data);
             }
@@ -50,6 +52,12 @@ export default function LoginPage() {
         }
     }
   };
+
+  useEffect(() => {
+    if(user){
+      navigate("/home");
+    }
+  })
 
   return (
     <div>

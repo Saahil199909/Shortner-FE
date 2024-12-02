@@ -9,7 +9,7 @@ import ModalComp from "./ModalComp";
 
 export default function AsideHomeComp(props) {
 
-  const {handleDeleteModel, onclose, isModalOpen, shortLink} = props
+  const {handleDeleteModel, onclose, isModalOpen, shortLink, user} = props
 
   // Define the columns for the table
   const columns = [
@@ -73,7 +73,7 @@ export default function AsideHomeComp(props) {
     setLoading(true)
     try{
       const offset = (currentPage - 1) * 10
-      const response = await axios.get(`${apiurl}user_generated_links/2?limit=${pageSize}&offset=${offset}`)
+      const response = await axios.get(`${apiurl}user_generated_links/${user.user_id}?limit=${pageSize}&offset=${offset}`)
       setApiData(response.data.data)
       setTotalItems(response.data.total_data)
     }

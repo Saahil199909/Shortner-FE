@@ -28,7 +28,7 @@ export default function AsideAnalyticsComp() {
 
   return (
     <div className="p-16 flex flex-col gap-16">
-      <h1 className="text-2xl font-medium"> Link statistics for: <span className="text-green-500"> {`http://${apidomain}/${unique_key}`} </span> </h1>
+      <h1 className="text-2xl font-medium"> Link statistics for: <span className="text-green-500"> {`https://${apidomain}/${unique_key}`} </span> </h1>
       <div className="flex flex-col gap-32 sm:flex-row">
         <AnalyticsSmallComp totalHitCount={apiData.short_link_created_at} category='Created on' />
         <AnalyticsSmallComp totalHitCount={apiData.total_hit_count} category='Total Counts' />
