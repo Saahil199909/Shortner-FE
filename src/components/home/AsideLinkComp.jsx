@@ -8,7 +8,6 @@ export default function AsideLinkComp(props) {
   const { handleIsModel, isModalOpen, errorModalOpen, errorData, shortLink, onclose } = props;
 
   const [generateUrlParams, setGenerateUrlParams] = useState({
-    userId: 2,
     keyLength: '',
     longUrl: "",
     domain: apidomain,

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { apiurl } from "../../../config";
 
-export default function LoginPage(props) {
-  const{setUser, user} = props
 
-  const [email, setEmail] = useState("");
+export default function RegisterPage(props) {
+    
+    const{setUser, user} = props
+
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
   const [emailError, setemailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -33,13 +35,15 @@ export default function LoginPage(props) {
     if (email.length === 0 && password.length === 0) {
         setemailError("email should not be empty.");
         setPasswordError("password should not be empty ");
-      }
+    }
+    console.log('before hitting api')
     if (email.length > 0 && password.length > 0) {
         try{
-            const response = await axios.post(`${apiurl}users/`, {email, password});
+            const response = await axios.post(`${apiurl}users/register`, {email, password});
             if(response.status == 200){
-              setUser(response.data)
-              localStorage.setItem("user_shortner", JSON.stringify(response.data))
+                setUser(response.data)
+                localStorage.setItem("user_shortner", JSON.stringify(response.data))
+                navigate('/home')
             }else{
                 console.error("Unexpected response status:", response.status, response.data);
             }
@@ -53,15 +57,9 @@ export default function LoginPage(props) {
     }
   };
 
-  useEffect(() => {
-    if(user){
-      navigate("/home");
-    }
-  })
-
   return (
-    <div className="overflow-hidden">
-      <main className="flex flex-col items-center my-[14rem] gap-4">
+    <div className='overflow-hidden'>
+      <main className="flex flex-col items-center my-[14rem] gap-4 ">
         <h1 className="text-[3rem] sm:text-[3.5rem] text-slate-600">
           ACCULYNC
         </h1>
@@ -101,19 +99,11 @@ export default function LoginPage(props) {
             handleLogin(email, password);
           }}
         >
-          LOG IN
-        </button>
-        
-        <button
-          className="w-2/3 sm:w-1/6 h-16 bg-slate-600 rounded text-white"
-          onClick={ () => navigate('/register')}
-        >
           Register
         </button>
+        
         {checkLogin && (<h2 className="text-red-600 text-sm mb-1">{checkLogin}</h2>)}
       </main>
     </div>
   );
 }
-
-

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 
 import LoginPage from "./components/login/LoginPage";
 import HomePage from "./components/home/HomePage";
+import RegisterPage from "./components/login/RegisterPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage  setUser={setUser} user={user} />} />
+        <Route path="/register" element={<RegisterPage setUser={setUser} user={user}/>} />
         <Route path="/home/*" element={user ? <HomePage user={user} /> : <Navigate to='/'/>} />
         <Route path="*" element={<Navigate to='/'/>} />
       </Routes>

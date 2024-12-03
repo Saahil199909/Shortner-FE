@@ -51,10 +51,10 @@ export default function Homepage(props) {
 
   const handleIsModel = async (params) => {
 
-    const  { userId, keyLength, longUrl, domain } = params;
+    const  {keyLength, longUrl, domain } = params;
 
     try{
-      const response = await axios.post(`${apiurl}generator/`, { user_id: userId, key_length: keyLength, long_url: longUrl, domain: domain })
+      const response = await axios.post(`${apiurl}generator/`, { user_id: user.user_id, key_length: keyLength, long_url: longUrl, domain: domain })
       if(response.status == 200){
         const generatedLink = response.data.short_link;
         setShortLink(generatedLink);
