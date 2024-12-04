@@ -51,7 +51,14 @@ export default function RegisterPage(props) {
         catch(error){
             if(error.response){
                 console.error("There was a problem with the API call:", error.response);
-                setCheckLogin('Email and Password do not match')
+                if (typeof(error.response.data.detail) === 'string'){
+                  let msg = error.response.data.detail
+                  setCheckLogin(msg)
+                }else{
+                  let msg = error.response.data.detail[0].msg
+                  setCheckLogin(msg)
+
+                }
             }
         }
     }
