@@ -42,7 +42,7 @@ export default function RegisterPage(props) {
         try{
             setRegisterLoading(true)
             const response = await axios.post(`${apiurl}users/register`, {email, password});
-            setRegisterLoading(true)
+            setRegisterLoading(false)
             if(response.status == 200){
                 setUser(response.data)
                 localStorage.setItem("user_shortner", JSON.stringify(response.data))
@@ -57,10 +57,11 @@ export default function RegisterPage(props) {
                 if (typeof(error.response.data.detail) === 'string'){
                   let msg = error.response.data.detail
                   setCheckLogin(msg)
+                  setRegisterLoading(false)
                 }else{
                   let msg = error.response.data.detail[0].msg
                   setCheckLogin(msg)
-
+                  setRegisterLoading(false)
                 }
             }
         }

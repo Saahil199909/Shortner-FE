@@ -44,13 +44,14 @@ export default function LoginPage(props) {
               setUser(response.data)
               localStorage.setItem("user_shortner", JSON.stringify(response.data))
             }else{
-                console.error("Unexpected response status:", response.status, response.data);
+              console.error("Unexpected response status:", response.status, response.data);
             }
         }
         catch(error){
             if(error.response){
                 console.error("There was a problem with the API call:", error.response);
                 setCheckLogin('Email and Password do not match')
+                setLoginLoading(false)
             }
         }
     }
