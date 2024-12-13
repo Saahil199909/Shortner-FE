@@ -11,6 +11,7 @@ export default function LoginPage(props) {
   const [emailError, setemailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkLogin, setCheckLogin] = useState('')
+  const [loginLoading, setLoginLoading] = useState(false)
   const navigate = useNavigate();
 
   const handleEmailInputChange = (e) => {
@@ -36,7 +37,9 @@ export default function LoginPage(props) {
       }
     if (email.length > 0 && password.length > 0) {
         try{
+            setLoginLoading(true)
             const response = await axios.post(`${apiurl}users/`, {email, password});
+            setLoginLoading(false)
             if(response.status == 200){
               setUser(response.data)
               localStorage.setItem("user_shortner", JSON.stringify(response.data))
@@ -101,7 +104,7 @@ export default function LoginPage(props) {
             handleLogin(email, password);
           }}
         >
-          LOG IN
+          {loginLoading ? 'Loading...' : 'LOG IN'} 
         </button>
         
         <button

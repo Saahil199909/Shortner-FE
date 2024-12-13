@@ -13,6 +13,7 @@ export default function RegisterPage(props) {
   const [emailError, setemailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkLogin, setCheckLogin] = useState('')
+  const [registerLoading, setRegisterLoading] = useState(false)
   const navigate = useNavigate();
 
   const handleEmailInputChange = (e) => {
@@ -39,7 +40,9 @@ export default function RegisterPage(props) {
     console.log('before hitting api')
     if (email.length > 0 && password.length > 0) {
         try{
+            setRegisterLoading(true)
             const response = await axios.post(`${apiurl}users/register`, {email, password});
+            setRegisterLoading(true)
             if(response.status == 200){
                 setUser(response.data)
                 localStorage.setItem("user_shortner", JSON.stringify(response.data))
@@ -106,7 +109,7 @@ export default function RegisterPage(props) {
             handleLogin(email, password);
           }}
         >
-          Register
+          {registerLoading ? 'Loading...' : 'Register'}
         </button>
         
         {checkLogin && (<h2 className="text-red-600 text-sm mb-1">{checkLogin}</h2>)}
